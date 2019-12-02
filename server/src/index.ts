@@ -1,9 +1,12 @@
+require("dotenv").config();
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as status from "http-status";
 
+require("./mapping");
+
 const app = express();
-const port = 3000
+const port = process.env.NODE_PORT || 3000;
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -21,5 +24,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}!`)
+    console.log(`Example app listening on port ${port}!`);
 });

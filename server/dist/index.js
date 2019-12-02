@@ -1,9 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
+require("./mapping");
 const app = express();
-const port = 3000;
+const port = process.env.NODE_PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(function (req, res, next) {
