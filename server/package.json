@@ -1,6 +1,6 @@
 {
   "name": "fe-charts",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "API for Fire Emblem Three Houses",
   "main": "index.js",
   "scripts": {
