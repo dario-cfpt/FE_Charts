@@ -1,6 +1,7 @@
 require("dotenv").config();
 const axios = require('axios').default;
 const cheerio = require('cheerio');
+const semver = require('semver');
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as status from "http-status";
@@ -9,7 +10,7 @@ const {Catalogue, Character, CharacterGrowthRate, ClassGrowthRate, FE_Class, Gen
 
 const app = express();
 const port = process.env.NODE_PORT || 3000;
-const argImport:string = "importing";
+const argImport: string = "importing";
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -99,9 +100,33 @@ abstract class FE_Charts {
             limit: 1,
             order: [["Dttm_Last_Update", "DESC"]],
         }).then(results => {
-            version = results
+            version = results[0].version;
         }).catch(err => FE_Charts.logError(err));
         return version;
+    }
+
+    static async getAllData() {
+        const version = await this.getCatalogueLastVersion();
+        const characters = await FE_Charts.getAllCharacters();
+        const characterGrowthRates = await FE_Charts.getAllCharactersGrowthRates();
+        const classesGrowthRates = await FE_Charts.getAllClassesGrowthRates();
+        const classes = await FE_Charts.getAllClasses();
+        const genders = await FE_Charts.getAllGenders();
+        const houses = await FE_Charts.getAllHouses();
+        const restrictedClasses = await FE_Charts.getAllRestrictedClasses();
+        const stats = await FE_Charts.getAllStats();
+
+        return {
+            version: version,
+            characters: characters,
+            charGrowthRates: characterGrowthRates,
+            classGrowthRates: classesGrowthRates,
+            classes: classes,
+            genders: genders,
+            houses: houses,
+            restrictedClasses: restrictedClasses,
+            stats: stats,
+        };
     }
 }
 
@@ -116,25 +141,29 @@ app.get('/version', (req, res) => {
 });
 
 app.get('/all', async (req, res) => {
-    const characters = await FE_Charts.getAllCharacters();
-    const characterGrowthRates = await FE_Charts.getAllCharactersGrowthRates();
-    const classesGrowthRates = await FE_Charts.getAllClassesGrowthRates();
-    const classes = await FE_Charts.getAllClasses();
-    const genders = await FE_Charts.getAllGenders();
-    const houses = await FE_Charts.getAllHouses();
-    const restrictedClasses = await FE_Charts.getAllRestrictedClasses();
-    const stats = await FE_Charts.getAllStats();
+    const data = await FE_Charts.getAllData();
+    res.status(status.OK).send(data);
+});
 
-    res.status(status.OK).send({
-        characters: characters,
-        charGrowthRates: characterGrowthRates,
-        classGrowthRates: classesGrowthRates,
-        classes: classes,
-        genders: genders,
-        houses: houses,
-        restrictedClasses: restrictedClasses,
-        stats: stats,
-    });
+app.post('/update', async (req, res) => {
+    const clientVersion = req.body.version;
+
+    if (clientVersion) {
+        FE_Charts.getCatalogueLastVersion().then(async (version) => {
+            try {
+                if (semver.gt(version, clientVersion)) {
+                    const data = await FE_Charts.getAllData();
+                    res.status(status.OK).send(data);
+                } else {
+                    res.status(status.OK).send(); // Catalogue up-to-date
+                }
+            } catch (e) {
+                res.status(status.INTERNAL_SERVER_ERROR).send(e.message);
+            }
+        });
+    } else {
+        res.status(status.BAD_REQUEST).send("'version' parameter undefined");
+    }
 });
 
 // Don't start the server if we're importing some data
