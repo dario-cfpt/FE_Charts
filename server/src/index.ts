@@ -155,7 +155,7 @@ app.post('/update', async (req, res) => {
                     const data = await FE_Charts.getAllData();
                     res.status(status.OK).send(data);
                 } else {
-                    res.status(status.OK).send(); // Catalogue up-to-date
+                    res.status(status.OK).send({}); // Catalogue up-to-date
                 }
             } catch (e) {
                 res.status(status.INTERNAL_SERVER_ERROR).send(e.message);

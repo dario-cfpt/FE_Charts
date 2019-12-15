@@ -167,7 +167,7 @@ app.post('/update', (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                     res.status(status.OK).send(data);
                 }
                 else {
-                    res.status(status.OK).send(); // Catalogue up-to-date
+                    res.status(status.OK).send({}); // Catalogue up-to-date
                 }
             }
             catch (e) {
