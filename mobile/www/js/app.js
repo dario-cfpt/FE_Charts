@@ -15,10 +15,11 @@ var app = new Framework7({
     methods: {},
     // App routes
     routes: routes,
+
+    panel: {
+        swipe: "left"
+    }
 });
 
 // Init/Create main view
-var mainView = app.views.create('.view-main', {
-    url: '/'
-});
-
+var mainView = app.views.create('.view-main');

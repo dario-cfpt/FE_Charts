@@ -71,7 +71,11 @@ abstract class FE_Charts {
 
     static async getAllHouses() {
         let houses = null;
-        await House.findAll().then(results => {
+        await House.findAll({
+            order: [
+                ["Id_House", "ASC"]
+            ]
+        }).then(results => {
             houses = results
         }).catch(err => FE_Charts.logError(err));
         return houses;

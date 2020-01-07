@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="theme-color" content="#2196f3">
@@ -14,6 +16,7 @@
     <link rel="stylesheet" href="framework7/css/framework7.bundle.min.css">
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
 <div id="app">
@@ -25,11 +28,18 @@
             <div class="page">
                 <div class="navbar">
                     <div class="navbar-inner">
-                        <div class="title">Left Panel</div>
+                        <div class="title">Menus</div>
                     </div>
                 </div>
                 <div class="page-content">
-                    <div class="block">Left panel content goes here</div>
+                    <div class="list simple-list">
+                        <ul>
+                            <li><a class="panel-close" href="/">Home</a></li>
+                            <li><a class="link panel-close" href="/classes/">List of classes</a></li>
+                            <li><a class="link panel-close" href="/comparator/">Comparator</a></li>
+                            <li><a class="link panel-close" href="/about/">About</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -53,9 +63,11 @@
             </div>
             <!-- Scrollable page content-->
             <div class="page-content">
-                <div class="block block-strong">
-                    <p>Here is your blank Framework7 app. Let's see what we have here.</p>
-                </div>
+<!--                <div id="characters-list">-->
+<!--                </div>-->
+                <figure class="highcharts-figure">
+                    <div id="container"></div>
+                </figure>
             </div>
         </div>
     </div>
@@ -68,6 +80,9 @@
 
 <!-- Framework7 library -->
 <script src="framework7/js/framework7.bundle.min.js"></script>
+<!-- Highcharts library -->
+<script src="js/lib/highcharts.js"></script>
+<script src="js/lib/modules/networkgraph.js"></script>
 
 <!-- App routes -->
 <script src="js/routes.js"></script>
@@ -75,5 +90,6 @@
 <!-- Your custom app scripts -->
 <script src="js/app.js"></script>
 <script src="js/index.js"></script>
+
 </body>
 </html>

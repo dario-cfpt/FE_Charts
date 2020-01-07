@@ -82,7 +82,11 @@ class FE_Charts {
     static getAllHouses() {
         return __awaiter(this, void 0, void 0, function* () {
             let houses = null;
-            yield House.findAll().then(results => {
+            yield House.findAll({
+                order: [
+                    ["Id_House", "ASC"]
+                ]
+            }).then(results => {
                 houses = results;
             }).catch(err => FE_Charts.logError(err));
             return houses;
