@@ -46,7 +46,9 @@ class FE_Charts {
     static getAllCharactersGrowthRates() {
         return __awaiter(this, void 0, void 0, function* () {
             let charactersGrowRates = null;
-            yield CharacterGrowthRate.findAll().then(results => {
+            yield CharacterGrowthRate.findAll({
+                attributes: ["value", "idCharacter", "idStat"]
+            }).then(results => {
                 charactersGrowRates = results;
             }).catch(err => FE_Charts.logError(err));
             return charactersGrowRates;
@@ -55,7 +57,9 @@ class FE_Charts {
     static getAllClassesGrowthRates() {
         return __awaiter(this, void 0, void 0, function* () {
             let classesGrowRates = null;
-            yield ClassGrowthRate.findAll().then(results => {
+            yield ClassGrowthRate.findAll({
+                attributes: ["value", "idClass", "idStat"]
+            }).then(results => {
                 classesGrowRates = results;
             }).catch(err => FE_Charts.logError(err));
             return classesGrowRates;
@@ -95,7 +99,9 @@ class FE_Charts {
     static getAllRestrictedClasses() {
         return __awaiter(this, void 0, void 0, function* () {
             let restrictedClasses = null;
-            yield RestrictedCharacterClass.findAll().then(results => {
+            yield RestrictedCharacterClass.findAll({
+                attributes: ["idClass", "idCharacter"]
+            }).then(results => {
                 restrictedClasses = results;
             }).catch(err => FE_Charts.logError(err));
             return restrictedClasses;

@@ -39,7 +39,9 @@ abstract class FE_Charts {
 
     static async getAllCharactersGrowthRates() {
         let charactersGrowRates = null;
-        await CharacterGrowthRate.findAll().then(results => {
+        await CharacterGrowthRate.findAll({
+            attributes: ["value", "idCharacter", "idStat"]
+        }).then(results => {
             charactersGrowRates = results
         }).catch(err => FE_Charts.logError(err));
         return charactersGrowRates;
@@ -47,7 +49,9 @@ abstract class FE_Charts {
 
     static async getAllClassesGrowthRates() {
         let classesGrowRates = null;
-        await ClassGrowthRate.findAll().then(results => {
+        await ClassGrowthRate.findAll({
+            attributes: ["value", "idClass", "idStat"]
+        }).then(results => {
             classesGrowRates = results
         }).catch(err => FE_Charts.logError(err));
         return classesGrowRates;
@@ -83,7 +87,9 @@ abstract class FE_Charts {
 
     static async getAllRestrictedClasses() {
         let restrictedClasses = null;
-        await RestrictedCharacterClass.findAll().then(results => {
+        await RestrictedCharacterClass.findAll({
+            attributes: ["idClass", "idCharacter"]
+        }).then(results => {
             restrictedClasses = results
         }).catch(err => FE_Charts.logError(err));
         return restrictedClasses;
