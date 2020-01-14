@@ -21,7 +21,18 @@ routes = [
                 const charId = page.route.params.charId;
                 if (charId != null) {
                     const char = feData.characters.find(x => x.id == charId);
-                    console.log(char);
+                    let charFullName = (char.lastName) ? char.firstName + " " + char.lastName
+                                                       : char.firstName;
+
+                    $$("#title-char").text(charFullName);
+                    $$("#picture-char").attr("src", "/img/characters/" + char.firstName + ".png");
+                    actualCharId = charId;
+                    createTableOfStats();
+                    displayTableOfGrowthRates();
+
+                    $$("#select-graph").on("change", () => {
+                        displayGraphOfGrowthRates();
+                    });
                 }
             }
         }
