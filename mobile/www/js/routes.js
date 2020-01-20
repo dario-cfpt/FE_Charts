@@ -25,7 +25,7 @@ routes = [
                                                        : char.firstName;
 
                     $$("#title-char").text(charFullName);
-                    $$("#picture-char").attr("src", "/img/characters/" + char.firstName + ".png");
+                    $$("#picture-char").attr("src", "img/characters/" + char.firstName + ".png");
                     actualCharId = charId;
                     createTableOfStats();
                     displayTableOfGrowthRates();
