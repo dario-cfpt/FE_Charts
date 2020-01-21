@@ -1,0 +1,53 @@
+<div class="page page-stat">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <a href="#" class="link back">
+                    <i class="icon icon-back"></i>
+                    <span class="if-not-md">Back</span>
+                </a>
+            </div>
+            <div id="title-char" class="title sliding">Fire Emblem Charts</div>
+        </div>
+    </div>
+    <div class="page-content">
+        <img id="picture-char" class="img-character">
+        <div class="card data-table data-table-collapsible data-table-init">
+            <div class="data-table-title">Growth rates :</div>
+            <table id="table-growth-rates">
+                <thead>
+                    <tr id="table-gr-header">
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="table-gr-content">
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <div class="list no-hairlines-md">
+                <ul>
+                    <li class="item-content item-input">
+                        <div class="item-media">
+                            <i class="icon demo-list-icon"></i>
+                        </div>
+                        <div class="item-inner">
+                            <div class="item-title item-label">Graph</div>
+                            <div class="item-input-wrap input-dropdown-wrap">
+                                <select id="select-graph" placeholder="Please choose...">
+                                    <option value="column-chart">Column chart</option>
+                                    <option value="pie-chart">Pie chart</option>
+                                    <option value="spider-web">Spider web</option>
+                                </select>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <figure class="highcharts-figure">
+                    <div id="container-char-gr"></div>
+                </figure>
+            </div>
+        </div>
+    </div>
+</div>
