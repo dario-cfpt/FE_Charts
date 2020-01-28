@@ -73,6 +73,9 @@ function displayCharacters() {
                 keys: ['from', 'to'],
             }
         },
+        credits: {
+            enabled: false
+        },
         series: [{
             dataLabels: {
                 enabled: true,

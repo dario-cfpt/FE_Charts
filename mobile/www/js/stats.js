@@ -6,6 +6,7 @@ Description : Display the stats of a character and/or class with various graphs
 const GRAPH_PIE_CHART_VALUE = "pie-chart";
 const GRAPH_SPIDER_WEB_VALUE = "spider-web";
 const GRAPH_COLUMN_CHART_VALUE = "column-chart";
+const GRAPH_CONTAINER_GR_ID = "container-char-gr";
 let actualCharId;
 
 function createTableOfStats() {
@@ -60,15 +61,19 @@ function displayColumnChartOfGrowthRates(charId) {
     });
     charData.data = statsValues;
 
-    displayColumnChart(statsNames, [charData]); // The data must be an array
+    displayColumnChart(GRAPH_CONTAINER_GR_ID, statsNames, [charData]); // The data must be an array
 }
 
 function displayPolarSpiderOfGrowthRates(charId) {
     const charGrowthRates = feData.charGrowthRates.map(x => (x.idCharacter == charId) ? x : null).filter((x) => x != null);
     const statsNames = feData.stats.map(x => x.name);
     const statsValues = charGrowthRates.map(x => x.value);
+    const charData = [{
+        name: feData.characters.find(x => x.id == charId).firstName,
+        data: statsValues,
+    }];
 
-    displayPolarSpider(statsNames, statsValues);
+    displayPolarSpider(GRAPH_CONTAINER_GR_ID, statsNames, charData);
 }
 
 function displayPieChartOfGrowthRates(charId) {

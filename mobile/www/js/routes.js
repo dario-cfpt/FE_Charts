@@ -39,7 +39,21 @@ routes = [
     },
     {
         path: '/comparator/',
-        templateUrl: './pages/comparator.html'
+        templateUrl: './pages/comparator.html',
+        on: {
+            pageInit: (e, page) => {
+                $$("#btn-graph-column-chart").on("click", (event) => {
+                    switchGraph(event);
+                });
+                $$("#btn-graph-spider-web").on("click", (event) => {
+                    switchGraph(event);
+                });
+            },
+            // We must use the pageAfterIn event in order to open the smartselect directly
+            pageAfterIn: (e, page) => {
+                configureSmartSelectOfCharacters();
+            }
+        }
     },
     {
         path: '/about/',

@@ -3,8 +3,8 @@ File name : graph.js
 Description : Display some graphs according to their settings
  */
 
-function displayColumnChart(categories, data) {
-    Highcharts.chart('container-char-gr', {
+function displayColumnChart(containerId, categories, data) {
+    Highcharts.chart(containerId, {
         chart: {
             type: 'column'
         },
@@ -12,7 +12,7 @@ function displayColumnChart(categories, data) {
             text: ''
         },
         tooltip: {
-            pointFormat: 'Growth Rates: <b>{point.y}%</b>'
+            pointFormat: '{series.name}: <b>{point.y}%</b>'
         },
         xAxis: {
             categories: categories,
@@ -33,8 +33,8 @@ function displayColumnChart(categories, data) {
     });
 }
 
-function displayPolarSpider(categories, data) {
-    Highcharts.chart('container-char-gr', {
+function displayPolarSpider(containerId, categories, series) {
+    Highcharts.chart(containerId, {
         chart: {
             polar: true,
             type: 'line'
@@ -58,15 +58,16 @@ function displayPolarSpider(categories, data) {
             lineWidth: 0,
             min: 0,
         },
+        plotOptions: {
+            series: {
+                pointPlacement: 'on'
+            }
+        },
         tooltip: {
             shared: true,
-            pointFormat: '<span style="color:{series.color}"><b>{point.y}%</b><br/>'
+            pointFormat: '<span style="color:{series.color}">{series.name}: <b>{point.y}%</b><br/>'
         },
-        series: [{
-            name: 'Growth Rates',
-            data: data,
-            pointPlacement: 'on'
-        }],
+        series: series,
         responsive: {
             rules: [{
                 condition: {
