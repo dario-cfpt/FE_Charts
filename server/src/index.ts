@@ -67,7 +67,11 @@ abstract class FE_Charts {
 
     static async getAllGenders() {
         let genders = null;
-        await Gender.findAll().then(results => {
+        await Gender.findAll({
+            order: [
+                ["id", "ASC"]
+            ]
+        }).then(results => {
             genders = results
         }).catch(err => FE_Charts.logError(err));
         return genders;

@@ -77,7 +77,11 @@ class FE_Charts {
     static getAllGenders() {
         return __awaiter(this, void 0, void 0, function* () {
             let genders = null;
-            yield Gender.findAll().then(results => {
+            yield Gender.findAll({
+                order: [
+                    ["id", "ASC"]
+                ]
+            }).then(results => {
                 genders = results;
             }).catch(err => FE_Charts.logError(err));
             return genders;

@@ -4,6 +4,8 @@ Description : Allow the user to compare multiple characters
  */
 
 const GRAPH_CONTAINER_COMPARATOR_ID = "container-comparator";
+const ID_GENDER_NON_RESTRICTED = 1;
+const BUTTON_ACTIVE_CLASS_NAME = "button-active";
 let smartComparator;
 let selectedCharacters = [];
 
@@ -47,10 +49,51 @@ function displayComparedCharacters() {
     $$("#table-comparator-content").empty();
 
     selectedCharacters.forEach(char => {
+        // Get all available classes for the character
+        const availableClasses = [];
+
+        feData.classes.forEach(feClass => {
+            if (feClass.isAvailableForAll && (feClass.idGender == ID_GENDER_NON_RESTRICTED || feClass.idGender == char.idGender)) {
+                availableClasses.push(feClass);
+            } else {
+                if (feData.restrictedClasses.find(x => x.idClass == feClass.id && x.idCharacter == char.id)) {
+                    availableClasses.push(feClass);
+                }
+            }
+        });
+
+        // Create the select of available classes
+        const selectContainer = $$("<div class='item-input-wrap input-dropdown-wrap'></div>");
+        const select = $$("<select>");
+        const defaultOption = $$("<option value='-1'>None</option>");
+        select.append(defaultOption);
+
+        availableClasses.forEach(feClass => {
+            const option = $$("<option>");
+            option.val(feClass.id);
+            option.text(feClass.name);
+            select.append(option);
+        });
+        selectContainer.append(select);
+
+        if (char.idClassSelected != null) {
+            // select the previous class selected
+            select.val(char.idClassSelected);
+        } else {
+            // select the first element
+            select.val(-1);
+        }
+
+        select.on("change", (e) => {
+            char.idClassSelected = Number($$(e.target).val());
+            displayCurrentGraph();
+        });
+
         // Fill the table
         const tr = $$("<tr>");
         const tdName = $$("<td>" + char.firstName + "</td>");
-        const tdClass = $$("<td>" + "none" + "</td>");
+        const tdClass = $$("<td>");
+        tdClass.append(selectContainer);
         tr.append(tdName);
         tr.append(tdClass);
         $$("#table-comparator-content").append(tr);
@@ -72,20 +115,8 @@ function compareWithColumnGraph() {
     const charactersData = [];
 
     selectedCharacters.forEach(char => {
-        // Create the graph
-        const statsValues = [];
-        const charGrowthRates = feData.charGrowthRates.map(x => (x.idCharacter == char.id) ? x : null).filter((x) => x != null);
-        const charData = {
-            name: char.firstName,
-            stack: char.id,
-        };
-
-        charGrowthRates.forEach(gr => {
-            statsValues.push(gr.value);
-        });
-        charData.data = statsValues;
-
-        charactersData.push((charData));
+        const charData = computeCharacterGrowthRatesWithClass(char);
+        charactersData.push(charData);
     });
 
     displayColumnChart(GRAPH_CONTAINER_COMPARATOR_ID, statsNames, charactersData);
@@ -95,23 +126,48 @@ function compareWithPolarSpider() {
     const charactersData = [];
     const statsNames = feData.stats.map(x => x.name);
 
-
     selectedCharacters.forEach(char => {
-        const charGrowthRates = feData.charGrowthRates.map(x => (x.idCharacter == char.id) ? x : null).filter((x) => x != null);
-        const statsValues = charGrowthRates.map(x => x.value);
-        const charData = {
-            name: char.firstName,
-            data: statsValues,
-        };
-
+        const charData = computeCharacterGrowthRatesWithClass(char);
         charactersData.push(charData);
     });
 
     displayPolarSpider(GRAPH_CONTAINER_COMPARATOR_ID, statsNames, charactersData);
 }
 
+function computeCharacterGrowthRatesWithClass(char) {
+    const charGrowthRates = feData.charGrowthRates.map(x => (x.idCharacter == char.id) ? x : null).filter(x => x != null);
+    const statsValues = [];
+    const charData = {
+        stack: char.id,
+    };
+
+    let charName = char.firstName;
+    let classGrowthRates = null;
+    if (char.idClassSelected != null && char.idClassSelected > 0) {
+        // Get the selected class of the character
+        classGrowthRates = feData.classGrowthRates.map(x => (x.idClass == char.idClassSelected) ? x : null).filter(x => x != null);
+        charName += " (" + feData.classes.find(x => x.id == char.idClassSelected).name + ")";
+    }
+    charData.name = charName;
+
+    charGrowthRates.forEach(gr => {
+        let grValue = gr.value;
+        if (classGrowthRates != null) {
+            // Compute the growth rates of the character with the growth rates of the class
+            let classGr = classGrowthRates.find(x => x.idStat == gr.idStat);
+            if (classGr != null) {
+                grValue += classGr.value;
+            }
+        }
+        statsValues.push(grValue);
+    });
+
+    charData.data = statsValues;
+    return charData;
+}
+
 function switchGraph(event) {
-    $$(".button-active").removeClass("button-active");
-    $$(event.target).addClass("button-active");
+    $$("." + BUTTON_ACTIVE_CLASS_NAME).removeClass(BUTTON_ACTIVE_CLASS_NAME);
+    $$(event.target).addClass(BUTTON_ACTIVE_CLASS_NAME);
     displayCurrentGraph();
 }

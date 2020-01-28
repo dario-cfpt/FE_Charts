@@ -38,6 +38,7 @@ routes = [
         }
     },
     {
+        name: 'comparator',
         path: '/comparator/',
         templateUrl: './pages/comparator.html',
         on: {
@@ -52,7 +53,13 @@ routes = [
             // We must use the pageAfterIn event in order to open the smartselect directly
             pageAfterIn: (e, page) => {
                 configureSmartSelectOfCharacters();
-            }
+            },
+            pageBeforeRemove: function (e, page) {
+                // Reset the classes selected when exiting the page
+                feData.characters.forEach(char => {
+                    char.idClassSelected = null;
+                });
+            },
         }
     },
     {
