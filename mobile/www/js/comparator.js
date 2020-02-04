@@ -49,18 +49,7 @@ function displayComparedCharacters() {
     $$("#table-comparator-content").empty();
 
     selectedCharacters.forEach(char => {
-        // Get all available classes for the character
-        const availableClasses = [];
-
-        feData.classes.forEach(feClass => {
-            if (feClass.isAvailableForAll && (feClass.idGender == ID_GENDER_NON_RESTRICTED || feClass.idGender == char.idGender)) {
-                availableClasses.push(feClass);
-            } else {
-                if (feData.restrictedClasses.find(x => x.idClass == feClass.id && x.idCharacter == char.id)) {
-                    availableClasses.push(feClass);
-                }
-            }
-        });
+        const availableClasses = getAvailableClassesForCharacter(char);
 
         // Create the select of available classes
         const selectContainer = $$("<div class='item-input-wrap input-dropdown-wrap'></div>");
@@ -166,8 +155,11 @@ function computeCharacterGrowthRatesWithClass(char) {
     return charData;
 }
 
-function switchGraph(event) {
+/**
+ * Change the style of the buttons used to choose the graph displayed and call the method to display the graph
+ */
+function switchGraph(event, callback) {
     $$("." + BUTTON_ACTIVE_CLASS_NAME).removeClass(BUTTON_ACTIVE_CLASS_NAME);
     $$(event.target).addClass(BUTTON_ACTIVE_CLASS_NAME);
-    displayCurrentGraph();
+    callback();
 }

@@ -28,12 +28,10 @@ routes = [
                     $$("#picture-char").attr("src", "img/characters/" + char.firstName + ".png");
                     actualCharId = charId;
                     createTableOfStats();
+                    createListOfAvailableClasses()
                     displayTableOfGrowthRates();
-
-                    $$("#select-graph").on("change", () => {
-                        displayGraphOfGrowthRates();
-                    });
                 }
+                createEventForGraphSwitch(displayGraphOfGrowthRates);
             }
         }
     },
@@ -42,14 +40,7 @@ routes = [
         path: '/comparator/',
         templateUrl: './pages/comparator.html',
         on: {
-            pageInit: (e, page) => {
-                $$("#btn-graph-column-chart").on("click", (event) => {
-                    switchGraph(event);
-                });
-                $$("#btn-graph-spider-web").on("click", (event) => {
-                    switchGraph(event);
-                });
-            },
+            pageInit: (e, page) => createEventForGraphSwitch(displayCurrentGraph),
             // We must use the pageAfterIn event in order to open the smartselect directly
             pageAfterIn: (e, page) => {
                 configureSmartSelectOfCharacters();
@@ -67,4 +58,12 @@ routes = [
         templateUrl: './pages/about.html'
     },
 ];
-  
+
+function createEventForGraphSwitch(callback) {
+    $$("#btn-graph-column-chart").on("click", (event) => {
+        switchGraph(event, callback);
+    });
+    $$("#btn-graph-spider-web").on("click", (event) => {
+        switchGraph(event, callback);
+    });
+}

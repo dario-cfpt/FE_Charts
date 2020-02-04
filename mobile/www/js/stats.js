@@ -3,9 +3,6 @@ File name : stats.js
 Description : Display the stats of a character and/or class with various graphs
  */
 
-const GRAPH_PIE_CHART_VALUE = "pie-chart";
-const GRAPH_SPIDER_WEB_VALUE = "spider-web";
-const GRAPH_COLUMN_CHART_VALUE = "column-chart";
 const GRAPH_CONTAINER_GR_ID = "container-char-gr";
 let actualCharId;
 
@@ -29,21 +26,37 @@ function displayTableOfGrowthRates() {
     displayGraphOfGrowthRates();
 }
 
-function displayGraphOfGrowthRates() {
-    const selectedGraph = $$("#select-graph").val();
+function createListOfAvailableClasses() {
+    const char = feData.characters.find(x => x.id == actualCharId);
+    // Get all available classes for the character
+    const availableClasses = getAvailableClassesForCharacter(char);
 
-    switch (selectedGraph) {
-        case GRAPH_SPIDER_WEB_VALUE:
-            displayPolarSpiderOfGrowthRates(actualCharId);
-            break;
-        case GRAPH_PIE_CHART_VALUE:
-            displayPieChartOfGrowthRates(actualCharId);
-            break;
-        case GRAPH_COLUMN_CHART_VALUE:
-        default:
-            displayColumnChartOfGrowthRates(actualCharId);
-            // Column chart graph by default
-            break;
+    // Create the select of available classes
+    const select = $$("#select-classes");
+    const defaultOption = $$("<option value='-1'>None</option>");
+    select.append(defaultOption);
+
+    availableClasses.forEach(feClass => {
+        const option = $$("<option>");
+        option.val(feClass.id);
+        option.text(feClass.name);
+        select.append(option);
+    });
+
+    // select the first element
+    select.val(-1);
+
+    select.on("change", (e) => {
+        char.idClassSelected = Number($$(e.target).val());
+        displayGraphOfGrowthRates();
+    });
+}
+
+function displayGraphOfGrowthRates() {
+    if ($$("#btn-graph-column-chart").hasClass("button-active")) {
+        displayColumnChartOfGrowthRates(actualCharId);
+    } else {
+        displayPolarSpiderOfGrowthRates(actualCharId);
     }
 }
 
@@ -74,20 +87,4 @@ function displayPolarSpiderOfGrowthRates(charId) {
     }];
 
     displayPolarSpider(GRAPH_CONTAINER_GR_ID, statsNames, charData);
-}
-
-function displayPieChartOfGrowthRates(charId) {
-    const charGrowthRates = feData.charGrowthRates.map(x => (x.idCharacter == charId) ? x : null).filter((x) => x != null);
-    const statsValues = [];
-
-    charGrowthRates.forEach(gr => {
-        const nameStat = feData.stats.find(x => x.id == gr.idStat).name;
-        const statWithValue = {
-            name: nameStat,
-            y: gr.value,
-        };
-        statsValues.push(statWithValue);
-    });
-
-    displayPieChart(statsValues);
 }

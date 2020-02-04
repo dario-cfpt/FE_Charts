@@ -82,38 +82,3 @@ function displayPolarSpider(containerId, categories, series) {
         }
     });
 }
-
-function displayPieChart(data) {
-    Highcharts.chart('container-char-gr', {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: ''
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.y}%</b>'
-        },
-        credits: {
-            enabled: false
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>: {point.y}%'
-                },
-            }
-        },
-        series: [{
-            name: 'Growth Rates',
-            colorByPoint: true,
-            data: data,
-        }]
-    });
-}
