@@ -2,3 +2,9 @@
     width: 256px;
     height: 256px;
 }
+
+#table-classes-content > tr > td {
+    text-align: center;
+    display: block !important;
+    padding-top: 1%;
+}

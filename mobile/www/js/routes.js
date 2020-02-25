@@ -9,8 +9,14 @@ routes = [
         }
     },
     {
+        name: 'classes',
         path: '/classes/',
         templateUrl: './pages/classes.html',
+        on: {
+            pageAfterIn: () => {
+                displayAllClasses();
+            }
+        }
     },
     {
         name: 'stat',
@@ -28,10 +34,28 @@ routes = [
                     $$("#picture-char").attr("src", "img/characters/" + char.firstName + ".png");
                     actualCharId = charId;
                     createTableOfStats();
-                    createListOfAvailableClasses()
-                    displayTableOfGrowthRates();
+                    createListOfAvailableClasses();
+                    displayCharGrowthRates();
                 }
-                createEventForGraphSwitch(displayGraphOfGrowthRates);
+                createEventForGraphSwitch(displayGraphOfGrowthRatesForChar);
+            }
+        }
+    },
+    {
+        name: 'feclass',
+        path: '/class/:id',
+        templateUrl: './pages/feclass.html',
+        on: {
+            pageInit: (e, page) => {
+                const id = page.route.params.id;
+                if (id != null) {
+                    const feclass = feData.classes.find(x => x.id == id);
+                    $$("#title-char").text(feclass.name);
+                    actualClassId = id;
+                    createTableOfStats();
+                    displayClassGrowthRates();
+                }
+                createEventForGraphSwitch(displayGraphOfGrowthRatesForClass);
             }
         }
     },

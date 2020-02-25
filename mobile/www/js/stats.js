@@ -1,9 +1,9 @@
 /*
 File name : stats.js
-Description : Display the stats of a character and/or class with various graphs
+Description : Display the stats of a character with various graphs
  */
 
-const GRAPH_CONTAINER_GR_ID = "container-char-gr";
+const GRAPH_CONTAINER_CHAR_GR_ID = "container-char-gr";
 let actualCharId;
 
 function createTableOfStats() {
@@ -16,14 +16,18 @@ function createTableOfStats() {
     });
 }
 
-function displayTableOfGrowthRates() {
-    const charGrowthRates = feData.charGrowthRates.map(x => (x.idCharacter == actualCharId) ? x : null).filter((x) => x != null);
+function displayCharGrowthRates() {
+    const charGrowthRates = feData.charGrowthRates.map(x => (x.idCharacter == actualCharId) ? x : null).filter(x => x != null);
+    displayTableOfGrowthRates(charGrowthRates, displayGraphOfGrowthRatesForChar);
+}
 
-    charGrowthRates.forEach(gr => {
+
+function displayTableOfGrowthRates(growthRates, callback) {
+    growthRates.forEach(gr => {
         $$("#stat-" + gr.idStat).text(gr.value);
     });
-
-    displayGraphOfGrowthRates();
+    $$("td:empty").text(0);
+    callback();
 }
 
 function createListOfAvailableClasses() {
@@ -48,43 +52,30 @@ function createListOfAvailableClasses() {
 
     select.on("change", (e) => {
         char.idClassSelected = Number($$(e.target).val());
-        displayGraphOfGrowthRates();
+        displayGraphOfGrowthRatesForChar();
     });
 }
 
-function displayGraphOfGrowthRates() {
+function displayGraphOfGrowthRatesForChar() {
     if ($$("#btn-graph-column-chart").hasClass("button-active")) {
-        displayColumnChartOfGrowthRates(actualCharId);
+        displayColumnChartOfCharGrowthRates();
     } else {
-        displayPolarSpiderOfGrowthRates(actualCharId);
+        displayPolarSpiderOfCharGrowthRates();
     }
 }
 
-function displayColumnChartOfGrowthRates(charId) {
-    const charFirstName = feData.characters.find(x => x.id == charId).firstName;
-    const charGrowthRates = feData.charGrowthRates.map(x => (x.idCharacter == charId) ? x : null).filter((x) => x != null);
+function displayColumnChartOfCharGrowthRates() {
+    const char = feData.characters.find(x => x.id == actualCharId);
     const statsNames = feData.stats.map(x => x.name);
-    const statsValues = [];
-    const charData = {
-        name: charFirstName,
-    };
+    const charData = [computeCharacterGrowthRatesWithClass(char)]; // The data must be an array
 
-    charGrowthRates.forEach(gr => {
-        statsValues.push(gr.value);
-    });
-    charData.data = statsValues;
-
-    displayColumnChart(GRAPH_CONTAINER_GR_ID, statsNames, [charData]); // The data must be an array
+    displayColumnChart(GRAPH_CONTAINER_CHAR_GR_ID, statsNames, charData);
 }
 
-function displayPolarSpiderOfGrowthRates(charId) {
-    const charGrowthRates = feData.charGrowthRates.map(x => (x.idCharacter == charId) ? x : null).filter((x) => x != null);
+function displayPolarSpiderOfCharGrowthRates() {
+    const char = feData.characters.find(x => x.id == actualCharId);
     const statsNames = feData.stats.map(x => x.name);
-    const statsValues = charGrowthRates.map(x => x.value);
-    const charData = [{
-        name: feData.characters.find(x => x.id == charId).firstName,
-        data: statsValues,
-    }];
+    const charData = [computeCharacterGrowthRatesWithClass(char)]; // The data must be an array
 
-    displayPolarSpider(GRAPH_CONTAINER_GR_ID, statsNames, charData);
+    displayPolarSpider(GRAPH_CONTAINER_CHAR_GR_ID, statsNames, charData);
 }
