@@ -11,6 +11,17 @@
         </div>
     </div>
     <div class="page-content">
+        <div class="list no-hairlines-md">
+            <figure class="highcharts-figure">
+                <div id="container-comparator"></div>
+            </figure>
+            <div class="block">
+                <p class="segmented segmented-raised segmented-round">
+                    <button id="btn-graph-spider-web" class="button button-round button-active">Spider web</button>
+                    <button id="btn-graph-column-chart" class="button button-round">Column chart</button>
+                </p>
+            </div>
+        </div>
         <div class="card data-table data-table-collapsible data-table-init">
             <table id="table-comparator">
                 <thead id="table-comparator-header">
@@ -22,34 +33,16 @@
                 <tbody id="table-comparator-content">
                 </tbody>
             </table>
-            <button id="btn-compare" class="button button-fill">Compare</button>
+            <button id="btn-compare" class="button button-fill">Select characters to compare</button>
             <a class="item-link smart-select smart-select-init" data-open-in="popup"  data-searchbar="true" data-searchbar-placeholder="Search a character...">
                 <select id="select-compare" multiple maxlength="8">
                 </select>
                 <div class="item-content" hidden>
                     <div class="item-inner">
-                        <div class="item-title">Comparator</div>
+                        <div class="item-title">Select characters (8 max)</div>
                     </div>
                 </div>
             </a>
-        </div>
-        <div class="list no-hairlines-md">
-            <ul>
-                <li class="item-content item-input">
-                    <div class="item-media">
-                        <i class="icon demo-list-icon"></i>
-                    </div>
-                </li>
-            </ul>
-            <figure class="highcharts-figure">
-                <div id="container-comparator"></div>
-            </figure>
-            <div class="block">
-                <p class="segmented segmented-raised segmented-round">
-                    <button id="btn-graph-spider-web" class="button button-round button-active">Spider web</button>
-                    <button id="btn-graph-column-chart" class="button button-round">Column chart</button>
-                </p>
-            </div>
         </div>
     </div>
 </div>

@@ -12,21 +12,11 @@
     </div>
     <div class="page-content">
         <img id="picture-char" class="img-character">
-        <div class="card data-table data-table-collapsible data-table-init">
-            <div class="data-table-title">Growth rates :</div>
-            <table id="table-growth-rates">
-                <thead>
-                    <tr id="table-gr-header">
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr id="table-gr-content">
-                    </tr>
-                </tbody>
-            </table>
-        </div>
         <div>
             <div class="list no-hairlines-md">
+                <figure class="highcharts-figure">
+                    <div id="container-char-gr"></div>
+                </figure>
                 <ul>
                     <li class="item-content item-input">
                         <div class="item-media">
@@ -41,9 +31,6 @@
                         </div>
                     </li>
                 </ul>
-                <figure class="highcharts-figure">
-                    <div id="container-char-gr"></div>
-                </figure>
                 <div class="block">
                     <p class="segmented segmented-raised segmented-round">
                         <button id="btn-graph-spider-web" class="button button-round button-active">Spider web</button>
@@ -51,6 +38,19 @@
                     </p>
                 </div>
             </div>
+        </div>
+        <div class="card data-table data-table-collapsible data-table-init">
+            <div class="data-table-title">Growth rates</div>
+            <table id="table-growth-rates">
+                <thead>
+                    <tr id="table-gr-header">
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="table-gr-content">
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
