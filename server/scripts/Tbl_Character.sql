@@ -9,8 +9,8 @@ START TRANSACTION;
 
 
 INSERT INTO `Tbl_Character` (`Id_Character`, `Nm_First`, `Nm_Last`, `Nm_File_Img`, `Id_House`, `Id_Gender`) VALUES
-(1, 'Byleth', 'Eisner', './img/characters/Byleth-M.png', 1, 3),
-(2, 'Byleth', 'Eisner', './img/characters/Byleth-F.png', 1, 2),
+(1, 'Byleth (M)', 'Eisner', './img/characters/Byleth (M).png', 1, 3),
+(2, 'Byleth (F)', 'Eisner', './img/characters/Byleth (F).png', 1, 2),
 (3, 'Edelgard', 'von Hresvelg', './img/characters/Edelgard.png', 2, 2),
 (4, 'Hubert', 'von Vestra', './img/characters/Hubert.png', 2, 3),
 (5, 'Ferdinand', 'von Aegir', './img/characters/Ferdinand.png', 2, 3),
