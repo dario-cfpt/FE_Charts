@@ -5,6 +5,7 @@ routes = [
         on: {
             pageAfterIn: () => {
                 displayCharacters();
+                onDeviceReady();
             }
         }
     },
