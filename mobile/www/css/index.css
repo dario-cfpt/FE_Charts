@@ -1,0 +1,23 @@
+.no-select {
+    -webkit-user-select: none; /* safari */
+    -ms-user-select: none; /* IE 10+ and Edge */
+    user-select: none; /* standard syntax */
+}
+
+.img-character {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 256px;
+    height: 256px;
+}
+
+#table-classes-content > tr > td {
+    text-align: center;
+    display: block !important;
+    padding-top: 3.7%;
+}
+
+.data-table-title {
+    text-align: center;
+}
