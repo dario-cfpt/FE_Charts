@@ -29,7 +29,7 @@ function displayColumnChartOfClassGrowthRates() {
     };
 
     classGrowthRates.forEach(gr => {
-        statsValues.push(gr.value);
+        statsValues.push(Number(gr.value));
     });
     classData.data = statsValues;
 
@@ -39,7 +39,7 @@ function displayColumnChartOfClassGrowthRates() {
 function displayPolarSpiderOfClassGrowthRates() {
     const classGrowthRates = getClassGrowthRates(actualClassId);
     const statsNames = feData.stats.map(x => x.name);
-    const statsValues = classGrowthRates.map(x => x.value);
+    const statsValues = classGrowthRates.map(x => Number(x.value));
 
     const classData = [{
         name: feData.classes.find(x => x.id == actualClassId).name,

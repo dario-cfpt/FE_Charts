@@ -3,16 +3,16 @@ File name : database.js
 Description : Communicates with the server to ensure that the data is up to date.
  */
 
-const BASE_URL = "http://localhost:3000/";
+const BASE_URL = "http://localhost/";
 let feData = JSON.parse(localStorage.getItem("feData"));
 
 if (feData != null) {
+    let body = new FormData();
+    body.append('version', feData.version);
+
     fetch(BASE_URL + "update", {
         method: "POST",
-        body: JSON.stringify({version: feData.version}),
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        body: body,
     })
         .then(res => {
             if (res.ok) {
@@ -47,7 +47,7 @@ if (feData != null) {
 
 function updateData(data) {
     // If the data received from the server are not empty then we can save them in the local storage
-    if (Object.keys(data).length > 0) {
+    if (data != null && Object.keys(data).length > 0) {
         localStorage.setItem("feData", JSON.stringify(data));
         feData = data;
     }

@@ -140,12 +140,12 @@ function computeCharacterGrowthRatesWithClass(char) {
     charData.name = charName;
 
     charGrowthRates.forEach(gr => {
-        let grValue = gr.value;
+        let grValue = Number(gr.value);
         if (classGrowthRates != null) {
             // Compute the growth rates of the character with the growth rates of the class
             let classGr = classGrowthRates.find(x => x.idStat == gr.idStat);
             if (classGr != null) {
-                grValue += classGr.value;
+                grValue += Number(classGr.value);
             }
         }
         statsValues.push(grValue);
