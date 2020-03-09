@@ -13,7 +13,7 @@ class fecharts {
     private function getAllCharacters() {
         $stmt = $this->conn->prepare("
             SELECT 
-                Id_Character as Id, 
+                Id_Character as id, 
                 Nm_First as firstName, 
                 Nm_Last as lastName, 
                 Nm_File_Img as imgFileName, 
@@ -60,7 +60,7 @@ class fecharts {
     private function getAllClasses() {
         $stmt = $this->conn->prepare("
             SELECT  
-                Id_Class as idClass, 
+                Id_Class as id, 
                 Nm_Class as name, 
                 Is_Available_For_All as isAvailableForAll, 
                 Id_Gender as idGender
@@ -153,11 +153,11 @@ class fecharts {
 
         $data->version = $this->getCatalogueLastVersion();
         $data->characters = $this->getAllCharacters();
-        $data->characterGrowthRates  = $this->getAllCharactersGrowthRates();
-        $data->classesGrowthRates  = $this->getAllClassesGrowthRates();
+        $data->charGrowthRates  = $this->getAllCharactersGrowthRates();
+        $data->classGrowthRates  = $this->getAllClassesGrowthRates();
         $data->classes = $this->getAllClasses();
-        $data->gender = $this->getAllGenders();
-        $data->house = $this->getAllHouses();
+        $data->genders = $this->getAllGenders();
+        $data->houses = $this->getAllHouses();
         $data->restrictedClasses = $this->getAllRestrictedClasses();
         $data->stats = $this->getAllStats();
 

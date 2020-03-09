@@ -1,6 +1,9 @@
 <?php
 require('fecharts.php');
 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+
 $fecharts = new fecharts();
 
 // Explode the URI
