@@ -21,3 +21,18 @@
 .data-table-title {
     text-align: center;
 }
+
+.text-center {
+    text-align: center;
+}
+
+.logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1.about, h2.about, h3.about {
+    color: #1f3487;
+    margin-top: 0px;
+}

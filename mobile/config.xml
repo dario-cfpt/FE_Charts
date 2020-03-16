@@ -20,9 +20,44 @@
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
             <application android:usesCleartextTraffic="true" />
         </edit-config>
+        <icon density="ldpi" src="icons/android/Icon-36.png" />
+        <icon density="ldpi" src="icons/android/Icon-48.png" />
+        <icon density="ldpi" src="icons/android/Icon-72.png" />
+        <icon density="ldpi" src="icons/android/Icon-96.png" />
+        <icon density="ldpi" src="icons/android/Icon-144.png" />
+        <icon density="ldpi" src="icons/android/Icon-192.png" />
+        <splash src="res/screen/android/splash-port-ldpi.jpg" density="port-ldpi"/>
+        <splash src="res/screen/android/splash-land-ldpi.jpg" density="land-ldpi"/>
+        <splash src="res/screen/android/splash-port-mdpi.jpg" density="port-mdpi"/>
+        <splash src="res/screen/android/splash-land-mdpi.jpg" density="land-mdpi"/>
+        <splash src="res/screen/android/splash-port-hdpi.jpg" density="port-hdpi"/>
+        <splash src="res/screen/android/splash-land-hdpi.jpg" density="land-hdpi"/>
+        <splash src="res/screen/android/splash-port-xhdpi.jpg" density="port-xhdpi"/>
+        <splash src="res/screen/android/splash-land-xhdpi.jpg" density="land-xhdpi"/>
+        <splash src="res/screen/android/splash-port-xxhdpi.jpg" density="port-xxhdpi"/>
+        <splash src="res/screen/android/splash-land-xxhdpi.jpg" density="land-xxhdpi"/>
+        <splash src="res/screen/android/splash-port-xxxhdpi.jpg" density="port-xxxhdpi"/>
+        <splash src="res/screen/android/splash-land-xxxhdpi.jpg" density="land-xxxhdpi"/>
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <icon src="icons/ios/Icon-29.png" height="29" width="29" />
+        <icon src="icons/ios/Icon-40.png" height="40" width="40" />
+        <icon src="icons/ios/Icon-50.png" height="50" width="50" />
+        <icon src="icons/ios/Icon-57.png" height="57" width="57" />
+        <icon src="icons/ios/Icon-58.png" height="58" width="58" />
+        <icon src="icons/ios/Icon-60.png" height="60" width="60" />
+        <icon src="icons/ios/Icon-72.png" height="72" width="72" />
+        <icon src="icons/ios/Icon-76.png" height="76" width="76" />
+        <icon src="icons/ios/Icon-80.png" height="80" width="80" />
+        <icon src="icons/ios/Icon-100.png" height="100" width="100" />
+        <icon src="icons/ios/Icon-114.png" height="114" width="114" />
+        <icon src="icons/ios/Icon-120.png" height="120" width="120" />
+        <icon src="icons/ios/Icon-144.png" height="144" width="144" />
+        <icon src="icons/ios/Icon-152.png" height="152" width="152" />
+        <icon src="icons/ios/Icon-167.png" height="167" width="167" />
+        <icon src="icons/ios/Icon-172.png" height="172" width="172" />
+        <icon src="icons/ios/Icon-180.png" height="180" width="180" />
     </platform>
 </widget>
