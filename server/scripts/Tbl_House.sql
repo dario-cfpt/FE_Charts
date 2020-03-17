@@ -13,7 +13,7 @@ INSERT INTO `Tbl_House` (`Id_House`, `Nm_House`) VALUES
 (3, 'Blue Lions'),
 (5, 'Church of Seiros'),
 (4, 'Golden Deer'),
-(1, 'None');
+(1, 'Unaffiliated');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

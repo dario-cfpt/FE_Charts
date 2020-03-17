@@ -36,7 +36,7 @@ INSERT INTO `Tbl_Class` (`Id_Class`, `Nm_Class`, `Is_Available_For_All`, `Id_Gen
 (25, 'Warrior', 1, 1),
 (26, 'Sniper', 1, 1),
 (27, 'Grappler', 1, 3),
-(28, 'Warlkock', 1, 1),
+(28, 'Warlock', 1, 1),
 (29, 'Dark Bishop', 1, 3),
 (30, 'Bishop', 1, 2),
 (31, 'Dancer', 0, 1),

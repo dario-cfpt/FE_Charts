@@ -523,7 +523,7 @@ INSERT INTO `Tbl_Class` (`Id_Class`, `Nm_Class`, `Is_Available_For_All`, `Id_Gen
 (25, 'Warrior', 1, 1),
 (26, 'Sniper', 1, 1),
 (27, 'Grappler', 1, 3),
-(28, 'Warlkock', 1, 1),
+(28, 'Warlock', 1, 1),
 (29, 'Dark Bishop', 1, 3),
 (30, 'Bishop', 1, 2),
 (31, 'Dancer', 0, 1),
@@ -571,6 +571,10 @@ INSERT INTO `Tbl_Class_Growth_Rate` (`Nb_Value`, `Id_Class`, `Id_Stat`) VALUES
 (5, 4, 4),
 (-5, 4, 8),
 (5, 4, 9),
+(10, 5, 1),
+(5, 5, 2),
+(-5, 5, 8),
+(5, 5, 9),
 (5, 6, 1),
 (5, 6, 8),
 (5, 6, 9),
@@ -681,6 +685,11 @@ INSERT INTO `Tbl_Class_Growth_Rate` (`Nb_Value`, `Id_Class`, `Id_Stat`) VALUES
 (10, 27, 4),
 (10, 27, 5),
 (5, 27, 9),
+(10, 28, 1),
+(10, 28, 3), 
+(-5, 28, 7), 
+(5, 28, 8),
+(5, 28, 9),
 (10, 29, 1),
 (10, 29, 3),
 (-5, 29, 7),
@@ -829,7 +838,7 @@ INSERT INTO `Tbl_House` (`Id_House`, `Nm_House`) VALUES
 (3, 'Blue Lions'),
 (5, 'Church of Seiros'),
 (4, 'Golden Deer'),
-(1, 'None');
+(1, 'Unaffiliated');
 
 -- --------------------------------------------------------
 
