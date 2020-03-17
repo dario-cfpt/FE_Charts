@@ -32,8 +32,8 @@ function displayTableOfGrowthRates(growthRates, callback) {
 }
 
 function createListOfAvailableClasses() {
-    const char = feData.characters.find(x => x.id == actualCharId);
     // Get all available classes for the character
+    const char = feData.characters.find(x => x.id == actualCharId);
     const availableClasses = getAvailableClassesForCharacter(char);
 
     // Create the select of available classes

@@ -4,6 +4,8 @@ Description : Display the content of the home page
  */
 
 const PRIMARY_NODE_NAME = "Fire Emblem Three House";
+// TODO: use color from database
+const DEFAUT_COLORS = ["#434348", "#de736d", "#1f3487", "#dfbe4a", "#9be7c0", "#afaad2"];
 
 function displayCharacters() {
     const housesWithCharacters = [];
@@ -24,7 +26,7 @@ function displayCharacters() {
         Highcharts.Series,
         'afterSetOptions',
         function (e) {
-            var colors = Highcharts.getOptions().colors,
+            var colors = DEFAUT_COLORS,
                 i = 0,
                 nodes = {};
 
@@ -85,6 +87,7 @@ function displayCharacters() {
             data: housesWithCharacters,
             events: {
                 click: function (event) {
+                    // Show the stat page of the character when clicking the node
                     const charFirstName = event.point.name;
                     const char = characters.find(x => x.firstName == charFirstName);
                     if (char != null) {

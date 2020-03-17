@@ -7,6 +7,8 @@ const BASE_URL = "http://localhost/";
 let feData = JSON.parse(localStorage.getItem("feData"));
 
 function isOnline() {
+    // Check that navigator.connection is not undefined to avoid error
+    // Necessary when the app run on the browser
     const networkState = (navigator.connection) ? navigator.connection.type : null;
 
     if (networkState != null && networkState != "none") {

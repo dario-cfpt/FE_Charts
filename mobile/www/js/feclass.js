@@ -44,6 +44,7 @@ function getClassGrowthRates(idClass) {
     for (let i = 0; i < NB_STATS; i++) {
         let gr = partialClassGrowthRates.find(x => (x.idStat == i + 1) ? x : null);
         if (gr == null) {
+            // Create a default growth rate to avoid missing stats
             gr = {
                 idClass: idClass,
                 idStat: i + 1,
