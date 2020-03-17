@@ -80,7 +80,13 @@ routes = [
     },
     {
         path: '/about/',
-        templateUrl: './pages/about.html'
+        templateUrl: './pages/about.html',
+        on: {
+            pageAfterIn: (e, page) => {
+                if (feData.version)
+                    $$("#catalogue-version").text(feData.version);
+            },
+        }
     },
 ];
 

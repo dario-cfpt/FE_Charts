@@ -16,9 +16,9 @@ var app = new Framework7({
     // App routes
     routes: routes,
 
-    // panel: {
-    //     swipe: "left"
-    // }
+    panel: {
+        swipe: "left"
+    }
 });
 
 // Init/Create main view

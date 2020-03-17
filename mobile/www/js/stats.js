@@ -4,6 +4,7 @@ Description : Display the stats of a character with various graphs
  */
 
 const GRAPH_CONTAINER_CHAR_GR_ID = "container-char-gr";
+const SELECTED_CLASS_COLOR = "#f7a35c";
 let actualCharId;
 
 function createTableOfStats() {
@@ -31,8 +32,8 @@ function displayTableOfGrowthRates(growthRates, callback) {
 }
 
 function createListOfAvailableClasses() {
-    const char = feData.characters.find(x => x.id == actualCharId);
     // Get all available classes for the character
+    const char = feData.characters.find(x => x.id == actualCharId);
     const availableClasses = getAvailableClassesForCharacter(char);
 
     // Create the select of available classes
@@ -53,6 +54,19 @@ function createListOfAvailableClasses() {
     select.on("change", (e) => {
         char.idClassSelected = Number($$(e.target).val());
         displayGraphOfGrowthRatesForChar();
+        updateTableOfGrowthRates(char);
+    });
+}
+
+function updateTableOfGrowthRates(char) {
+    const charGrowthRates = feData.charGrowthRates.map(x => (x.idCharacter == char.id) ? x : null).filter(x => x != null);
+
+    classGrowthRates = feData.classGrowthRates.map(x => (x.idClass == char.idClassSelected) ? x : null).filter(x => x != null);
+    classGrowthRates.forEach(gr => {
+        const charGr = charGrowthRates.find(x => x.id == gr.id);
+        const bonus = (gr.value > 0) ? " (+" + gr.value + ")": " (" + gr.value + ")";
+
+        $$("#stat-" + gr.idStat).text(charGr.value + bonus);
     });
 }
 
@@ -65,11 +79,47 @@ function displayGraphOfGrowthRatesForChar() {
 }
 
 function displayColumnChartOfCharGrowthRates() {
-    const char = feData.characters.find(x => x.id == actualCharId);
     const statsNames = feData.stats.map(x => x.name);
-    const charData = [computeCharacterGrowthRatesWithClass(char)]; // The data must be an array
+    const char = feData.characters.find(x => x.id == actualCharId);
+    const charGrowthRates = feData.charGrowthRates.map(x => (x.idCharacter == char.id) ? x : null).filter(x => x != null);
 
-    displayColumnChart(GRAPH_CONTAINER_CHAR_GR_ID, statsNames, charData);
+    const charData = {
+        name: char.firstName,
+        data: [],
+    };
+    const classData = {
+        data: [],
+        color: SELECTED_CLASS_COLOR,
+    };
+    let classGrowthRates = null;
+
+    if (char.idClassSelected != null && char.idClassSelected > 0) {
+        // Get the selected class of the character
+        classData.name = feData.classes.find(x => x.id == char.idClassSelected).name;
+        classGrowthRates = feData.classGrowthRates.map(x => (x.idClass == char.idClassSelected) ? x : null).filter(x => x != null);
+    }
+
+    charGrowthRates.forEach(gr => {
+        charData.data.push(Number(gr.value));
+
+        if (classGrowthRates != null) {
+            // Compute the growth rates of the character with the growth rates of the class
+            let classGr = classGrowthRates.find(x => x.idStat == gr.idStat);
+
+            if (!classGr) {
+                classGr = 0;
+            }
+
+            classData.data.push(Number(classGr.value));
+        }
+    });
+
+    const series = [charData];
+    if (classGrowthRates != null) {
+        series.unshift(classData);
+    }
+
+    displayColumnChart(GRAPH_CONTAINER_CHAR_GR_ID, statsNames, series);
 }
 
 function displayPolarSpiderOfCharGrowthRates() {

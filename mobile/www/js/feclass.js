@@ -4,17 +4,17 @@ Description : Methods related to the classes of characters
  */
 
 const NB_STATS = 9;
+const ID_CLASS_IS_AVAILABLE_FOR_ALL = 1;
 
 function getAvailableClassesForCharacter(char) {
     const availableClasses = [];
 
     feData.classes.forEach(feClass => {
-        if (feClass.isAvailableForAll && (feClass.idGender == ID_GENDER_NON_RESTRICTED || feClass.idGender == char.idGender)) {
+        if (feClass.isAvailableForAll == ID_CLASS_IS_AVAILABLE_FOR_ALL
+            && (feClass.idGender == ID_GENDER_NON_RESTRICTED || feClass.idGender == char.idGender)) {
             availableClasses.push(feClass);
-        } else {
-            if (feData.restrictedClasses.find(x => x.idClass == feClass.id && x.idCharacter == char.id)) {
-                availableClasses.push(feClass);
-            }
+        } else if (feData.restrictedClasses.find(x => x.idClass == feClass.id && x.idCharacter == char.id)) {
+            availableClasses.push(feClass);
         }
     });
     return availableClasses;
@@ -44,6 +44,7 @@ function getClassGrowthRates(idClass) {
     for (let i = 0; i < NB_STATS; i++) {
         let gr = partialClassGrowthRates.find(x => (x.idStat == i + 1) ? x : null);
         if (gr == null) {
+            // Create a default growth rate to avoid missing stats
             gr = {
                 idClass: idClass,
                 idStat: i + 1,

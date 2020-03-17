@@ -9,6 +9,9 @@ START TRANSACTION;
 
 
 INSERT INTO `Tbl_Character_Class` (`Id_Class`, `Id_Character`) VALUES
+(7, 3),
+(7, 11),
+(7, 19),
 (32, 1),
 (32, 2),
 (33, 3),

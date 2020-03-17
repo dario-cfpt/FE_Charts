@@ -18,8 +18,9 @@ function configureSmartSelectOfCharacters() {
         const optgroup = "<optgroup id='optgroup-house-" + house.id + "' label='" + house.name + "'>";
         $$("#select-compare").append(optgroup);
     });
+
     characters.forEach(char => {
-        const option = "<option id='" + char.id + "'>" + char.firstName + "</option>";
+        const option = "<option id='" + char.id + "' data-option-image='" + "img/characters/" + char.firstName + ".png" + "'>" + char.firstName + "</option>";
         $$("#optgroup-house-" + char.idHouse).append(option);
     });
 
